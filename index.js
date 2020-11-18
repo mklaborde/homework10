@@ -1,9 +1,19 @@
 const express = require("express");
-const path = require("path");
+//const path = require("path");
 const sqlite3 = require("sqlite3").verbose();
 
 const app = express();
-const db_name = path.join(__dirname, "data", "apptest.db");
+
+//app.set("views", __dirname + "/views");
+//app.set("views", path.join(__dirname, "views"));
+//app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("public"));
+app.use(express.static("data"));
+
+
+
+const app = express();
+//const db_name = path.join(__dirname, "data", "apptest.db");
 const db = new sqlite3.Database(db_name, err => {
   if (err) {
     return console.error(err.message);
@@ -41,8 +51,8 @@ app.listen(3000, () => {
 });
 
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-app.use(express.static(path.join(__dirname, "public")));
+//app.set("views", path.join(__dirname, "views"));
+//app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/about", (req, res) => {
@@ -125,3 +135,4 @@ app.get("/", (req, res) => {
     // res.send("Hello world...");
     res.render("index");
   });
+
